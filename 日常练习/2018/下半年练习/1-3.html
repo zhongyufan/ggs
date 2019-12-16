@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jQuery-big.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 484px;
+
+        }
+    </style>
+</head>
+<body>
+<div id="banner">
+    <ul>
+        <li><img src="img/banner1.jpg" alt=""></li>
+        <li><img src="img/banner2.jpg" alt=""></li>
+        <li><img src="img/banner3.jpg" alt=""></li>
+        <!--<li><img src="img/banner4.jpg" alt=""></li> -->
+        <li><img src="img/banner5.jpg" alt=""></li>
+    </ul>
+</div>
+<!--<script type="application/javascript">-->
+<!--var obj1 = document.getElementById('banner');-->
+<!--var li = obj1.getElementsByTagName('li');-->
+<!--var j = 0;-->
+<!--var iIndex = 1;-->
+<!--var timer;-->
+
+<!--for (var i = 0; i < li.length; i++) {-->
+<!--if (i === j) {-->
+<!--li[i].style.opacity = '1';-->
+<!--continue;-->
+<!--}-->
+<!--li[i].style.opacity = '0';-->
+<!--}-->
+
+<!--function f() {-->
+<!--j++;-->
+<!--if (j >= li.length) {-->
+<!--j = 0;-->
+<!--}-->
+<!--li[j].style.zIndex = iIndex;-->
+<!--iIndex++;-->
+<!--f2(li[j], 1);-->
+<!--}-->
+<!--function f2(obj, period) {-->
+<!--clearInterval(obj.timer);-->
+<!--obj.timer = setInterval(function () {-->
+<!--var opacityValue = Number.parseFloat(obj.style.opacity);-->
+<!--opacityValue += 0.02;-->
+<!--if (opacityValue < 1) {-->
+<!--obj.style.opacity = opacityValue;-->
+<!--}-->
+<!--else {-->
+<!--obj.style.opacity = 1;-->
+<!--clearInterval(obj.timer);-->
+<!--for (var i = 0; i < li.length; i++) {-->
+<!--if (i === j) {-->
+<!--continue;-->
+<!--}-->
+<!--li[i].style.opacity = '0';-->
+<!--}-->
+<!--}-->
+<!--}, 20);-->
+<!--}-->
+<!--timer = setInterval(f, 2000);-->
+<!--</script>-->
+<!--jQuery-->
+<script>
+    var $j = 0; // 当前图像
+    var $l = 0;
+    var $timer = '';
+    var $period = 2;
+    var $iIndex = 1; // zIndex
+
+    var $imgs = $('div#banner ul li img');
+    $imgs.eq($j).css('z-index', $iIndex).css('opacity', '1');
+    $imgs.filter(':not(:eq(' + $j + '))').css('opacity', '0');
+
+    function startRoll() {
+        $l = $j;
+        $j++;
+        $iIndex++;
+        if ($j >= $imgs.length) {
+            $j = 0;
+        }
+        $imgs.eq($j).css('z-Index', $iIndex).animate({opacity: 1}, 1000, 'linear', function () {
+            $imgs.eq($l).css('opacity', '0');
+        });
+        $timer = setTimeout('startRoll()', 2000);
+        console.log($l+'-'+$j);
+    }
+    $timer =setTimeout('startRoll()',2000);
+</script>
+</body>
+</html>

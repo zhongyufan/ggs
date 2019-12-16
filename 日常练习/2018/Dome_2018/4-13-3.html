@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var oBtn1 = document.getElementById('btn1');
+            var oBtn2 = document.getElementById('btn2');
+
+            oBtn1.onclick = function () {
+                var str = document.getElementById('txt-input').value;
+                document.getElementById('txt-ouput').value= escape(str);
+            };
+
+            oBtn2.onclick = function () {
+                var str = document.getElementById('txt-input').value;
+                document.getElementById('txt-ouput').value= unescape(str);
+            }
+        }
+    </script>
+</head>
+<body>
+<form>
+    <textarea id="txt-input" cols="30"></textarea><br>
+    <input type="button" id="btn1" value="加密">
+    <input type="button" id="btn2" value="解密">
+    <input type="reset" value="清空"/><br/>
+    <textarea id="txt-ouput" cols="30"></textarea>
+</form>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 鼠标
+            // 定义画布
+            var canvas = document.getElementById("text");
+            if (canvas.getContext) {
+                var ctx = canvas.getContext("2d");
+            }
+            canvas.onmousedown = function (ev) {
+                //判断兼容性
+                ev = ev || event;
+                if (canvas.setCapture) {
+                    canvas.setCapture();
+                }
+                ctx.beginPath();
+                ctx.moveTo(ev.clientX - canvas.offsetLeft, ev.clientY - canvas.offsetTop);
+                document.onmousemove = function (ev) {
+                    ev = ev || event;
+                    ctx.save();
+                    // ctx.strokeStyle = "pink";
+                    ctx.lineTo(ev.clientX - canvas.offsetLeft, ev.clientY - canvas.offsetTop);
+                    ctx.stroke();
+                    ctx.restore();
+
+                };
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                    if (document.releaseCapture) {
+                        document.releaseCapture();
+                    }
+                };
+
+                return false;
+
+            };
+
+            // 触摸
+            var start_x, start_y, move_x, move_y, end_x, end_y;
+            var t = document.getElementById('text').offsetTop; //canvas上边距
+            var l = document.getElementById('text').offsetLeft; //canvas做边距
+            //按下
+            document.getElementById("text").addEventListener("touchstart", function (e) {
+                start_x = e.touches[0].pageX - l;
+                start_y = e.touches[0].pageY - t;
+            });
+            //移动
+            document.getElementById("text").addEventListener("touchmove", function (e) {
+                move_x = e.touches[0].pageX - l;
+                move_y = e.touches[0].pageY - t;
+            });
+            //松开
+            document.getElementById("text").addEventListener("touchend", function (e) {
+                end_x = e.changedTouches[0].pageX - l;
+                end_y = e.changedTouches[0].pageY - t;
+            });
+            document.getElementById("text").addEventListener("touchstart", function (e) {
+                start_x = e.touches[0].pageX - l;
+                start_y = e.touches[0].pageY - t;
+                //开始本次绘画  
+                ctx.beginPath();
+                //画笔起始点  
+                ctx.moveTo(start_x, start_y);
+            });
+            document.getElementById("text").addEventListener("touchmove", function (e) {
+                move_x = e.touches[0].pageX - l;
+                move_y = e.touches[0].pageY - t;
+                //根据鼠标路径绘画  
+                ctx.lineTo(move_x, move_y);
+                //立即渲染  
+                ctx.stroke();
+            });
+            document.getElementById("text").addEventListener("touchend", function (e) {
+                end_x = e.changedTouches[0].pageX - l;
+                end_y = e.changedTouches[0].pageY - t;
+                //创建从当前点到开始点的路径
+                ctx.closePath();
+            });
+
+            // 清空画布
+            $('#res').on('click', function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            })
+
+            $("#yes").on('click', function () {
+                // 转换画布信息
+                var data = canvas.toDataURL();
+                // 画布数据储存一次
+                var dataImg;
+                dataImg.push(data);
+                localStorage.setItem('data', JSON.stringify(dataImg));
+                // 清除所有内容
+                $('.allName').find('.nameList').remove();
+                var str = JSON.parse(localStorage.getItem('data'));
+                // 添加新的汇总
+                for (var i = 0; i < str.length; i++) {
+                    $('.allName').append('<div class="nameList"><img src="' + str[i] +
+                        '" alt="" class="imgName"></div>');
+                }
+                // 清空画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                console.log(str);
+
+            })
+        })
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-size: 62.5%;
+        }
+
+        /* 标题 */
+        .title {
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font: bolder 8rem "微软雅黑";
+        }
+
+        /* 画布 */
+        .board {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+
+        #text {
+            background: #eee;
+            border-radius: 20px;
+        }
+
+
+        /* 提交 */
+        .submit {
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .submit input {
+            border: 1px solid red;
+            font-size: 2rem;
+            border-radius: 20px;
+            width: 200px;
+            height: 80px;
+            cursor: pointer;
+            opacity: .5;
+            transition: all .5s ease;
+        }
+
+        .submit input:focus {
+            outline: none;
+        }
+
+        .submit input:hover {
+            opacity: 1;
+        }
+
+        .submit input:last-child {
+            margin-left: 3rem;
+            border: 1px solid blue;
+
+        }
+
+        .allName {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+
+            justify-content: space-around;
+        }
+
+        .allName .nameList {
+            width: 24%;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .allName .nameList img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="title">签到处</section>
+    <section class="board">
+        <canvas id="text" height="850" width="1700"></canvas>
+    </section>
+    <section class="submit">
+        <input type="button" value="重置" id="res">
+        <input type="button" value="确认" id="yes">
+    </section>
+    <section class="allName">
+        <!-- <div class="nameList">
+            <img src=""
+                alt="">
+        </div> -->
+    </section>
+    <div id="test"></div>
+</body>
+
+</html>

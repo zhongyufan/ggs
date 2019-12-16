@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+//                function maxNum() {
+//                    var x=document.getElementById('num1').value;
+//                    var y=document.getElementById('num2').value;
+//                    x=parseFloat(x);
+//                    y=parseFloat(y);
+//
+//                    if(x<y){
+//                        alert("最大数是:" +y);
+//                    }
+//                    else {
+//                        alert("最大数是:" +x);
+//                    }
+//                }
+            function maxNum() {
+                var x=document.getElementById('num1').value;
+                var s1="";
+
+                for (var i=0;i<x.length;i++){
+                        s1+=x.charAt(i)+",";
+                }
+                alert(s1)
+            }
+    </script>
+</head>
+<body>
+第一个数是：<input type="text" id="num1"><br>
+第二个数是：<input type="text" id="num2"><br>
+<input type="button" onclick="maxNum()" value="计算">
+
+</body>
+</html>

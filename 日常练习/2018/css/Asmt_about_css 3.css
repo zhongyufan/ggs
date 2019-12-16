@@ -1,0 +1,40 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    border: 0;
+    background: #eb504e;
+}
+
+.text{
+    color: white;
+    margin-top: 50px;
+    width: 100%;
+    min-width: 1360px;
+}
+h1{
+    font: 150px "微软雅黑";
+    margin-top: 250px;
+    margin-left: 150px;
+}
+h2{
+    font: 30px "微软雅黑";
+    margin-top: 20px;
+    margin-left: 150px;
+
+}
+#back{
+    border: 1px solid white;
+    text-align: center;
+    height: 50px;
+    width: 200px;
+    margin-top: 300px;
+    float: right;
+    margin-right: 350px;
+}
+#back a{
+    text-decoration: none;
+    color: white;
+    line-height: 50px;
+}
+
