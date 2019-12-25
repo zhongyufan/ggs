@@ -45,13 +45,16 @@
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
+        // 可以使用 classList.toggle 方法来切换开关
         $('.fa-play-circle').click(function(){
             $('.mediaSrc').get(0).play();
             $(this).css('display','none');
+            $('.media').css('background-color','black');
         })
         $('.mediaSrc').click(function(){
             $('.mediaSrc').get(0).pause();
             $('.fa-play-circle').css('display','block');
+            $('.media').css('background-color','white');
         })
     </script>
 </body>
