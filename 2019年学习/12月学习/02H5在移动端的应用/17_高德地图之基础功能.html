@@ -47,13 +47,31 @@
             // 设置行政区
             // map.setCity
 
-            // 获取显示范围
-            map.getBounds()
+            // 获取地图范围
+            // map.getBounds()
             // .northeast 东北角
             // .southwest 西南角
-            // 设置显示范围
-            map.setBounds()
+            // 设置地图范围
+            // map.setBounds()
 
+            // 设置显示范围
+            // map.setLimitBounds()
+            // 清除设定的显示范围
+            // map.clearLimitBounds()
+            // map.getBounds().northeast().R = 118
+
+            // 地图的平移x,y个像素
+            // map.panBy(x,y)
+            // 地图会直接平移到这个位置
+            // map.panTo([x,y])
+
+            // 获取鼠标的经纬度
+            map.on('click', function (e) {
+               console.log(e.lnglat);
+            })
+
+            // 设置鼠标样式
+            // map.setDefaultCursor('pointer');
         }
         var jMap = document.createElement('script');
         jMap.src = 'https://webapi.amap.com/maps?v=1.4.15&key=7f0721bcec24d1bb57f6d6c40b56b673';
