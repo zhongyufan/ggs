@@ -89,10 +89,11 @@
             })
 
             $("#yes").on('click', function () {
+                alert(1);
                 // 转换画布信息
                 var data = canvas.toDataURL();
                 // 画布数据储存一次
-                var dataImg;
+                var dataImg=[];
                 dataImg.push(data);
                 localStorage.setItem('data', JSON.stringify(dataImg));
                 // 清除所有内容
