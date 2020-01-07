@@ -4,6 +4,115 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-size: 62.5%;
+        }
+
+        /* 标题 */
+        .title {
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font: bolder 8rem "微软雅黑";
+        }
+
+        /* 画布 */
+        .board {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+
+        #text {
+            background: #eee;
+            border-radius: 20px;
+        }
+
+
+        /* 提交 */
+        .submit {
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .submit input {
+            border: 1px solid red;
+            font-size: 2rem;
+            border-radius: 20px;
+            width: 200px;
+            height: 80px;
+            cursor: pointer;
+            opacity: .5;
+            transition: all .5s ease;
+        }
+
+        .submit input:focus {
+            outline: none;
+        }
+
+        .submit input:hover {
+            opacity: 1;
+        }
+
+        .submit input:last-child {
+            margin-left: 3rem;
+            border: 1px solid blue;
+
+        }
+
+        .allName {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .allName .nameList {
+            width: 24%;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .allName .nameList img {
+            width: 100%;
+            height: auto;
+        }
+
+        .allName .nameList .close {
+            width: 40px;
+            height: 40px;
+            background: url(../image/关闭.png);
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -88,7 +197,7 @@
                 for (var i = 0; i < localStorage.length - 1; i++) {
                     $('.allName').append('<div class="nameList"><img src="' + localStorage.getItem('data' + (i +
                             1)) +
-                        '" alt="" class="imgName"></div>');
+                        '" alt="" class="imgName"><div class="close"></div></div>');
                 }
             }
 
@@ -98,7 +207,7 @@
             })
 
             // 清除本地缓存专用，注意清除了无法恢复
-            // localStorage.clear();
+            localStorage.clear();
 
 
             $("#yes").on('click', function () {
@@ -124,123 +233,46 @@
                     $('.allName').find('.nameList').remove();
 
                     // 添加新的汇总（-1 是为了去掉计数器）
-                    for (var i = 0; i < localStorage.length - 1; i++) {
-                        $('.allName').append('<div class="nameList"><img src="' + localStorage.getItem(
-                                'data' + (i + 1)) +
-                            '" alt="" class="imgName"></div>');
+                    for (var i = 0; i < num; i++) {
+                        
+                        if (localStorage.getItem(
+                                'data' + (i + 1)) != null) {
+                            $('.allName').append('<div class="nameList"><img src="' + localStorage
+                                .getItem(
+                                    'data' + (i + 1)) +
+                                '" alt="" class="imgName"><div class="close"></div></div>');
+                        }
+
                     }
                     // 清空画布
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                }else{
+                } else {
                     alert('签名板是空的，请重新签名！');
                 }
 
                 // 删除签名
-                
-
+                $('.close').on('click', function () {
+                    // if(confirm("确认删除吗？将无法恢复")){
+                    //     console.log(this.index);
+                    // }
+                    // 当前点击元素的下标
+                    var index = $(this).parent().index() + 1;
+                    // 删除点击元素的img数据
+                    localStorage.removeItem('data' + index);
+                    // 修改num
+                    num--;
+                    localStorage.setItem('num', num);
+                    console.log(localStorage);
+                    console.log(localStorage.getItem(
+                        'data1'))
+                    $(this).parent().remove();
+                })
             })
         })
     </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            font-size: 62.5%;
-        }
-
-        /* 标题 */
-        .title {
-            height: 20%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font: bolder 8rem "微软雅黑";
-        }
-
-        /* 画布 */
-        .board {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60%;
-            width: 100%;
-            overflow: hidden;
-        }
 
 
-        #text {
-            background: #eee;
-            border-radius: 20px;
-        }
-
-
-        /* 提交 */
-        .submit {
-            height: 20%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-        .submit input {
-            border: 1px solid red;
-            font-size: 2rem;
-            border-radius: 20px;
-            width: 200px;
-            height: 80px;
-            cursor: pointer;
-            opacity: .5;
-            transition: all .5s ease;
-        }
-
-        .submit input:focus {
-            outline: none;
-        }
-
-        .submit input:hover {
-            opacity: 1;
-        }
-
-        .submit input:last-child {
-            margin-left: 3rem;
-            border: 1px solid blue;
-
-        }
-
-        .allName {
-            width: 100%;
-            height: auto;
-            display: flex;
-            flex-wrap: wrap;
-
-            justify-content: space-around;
-        }
-
-        .allName .nameList {
-            width: 24%;
-            height: 200px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .allName .nameList img {
-            width: 100%;
-            height: auto;
-        }
-    </style>
 </head>
 
 <body>
@@ -254,11 +286,12 @@
     </section>
     <section class="allName">
         <!-- <div class="nameList">
-            <img src=""
-                alt="">
+            <img src=""alt="">
+            <div class="close"></div>
         </div> -->
     </section>
     <div id="test"></div>
+
 </body>
 
 </html>
