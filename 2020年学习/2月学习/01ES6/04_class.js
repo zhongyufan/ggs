@@ -201,5 +201,211 @@ console.log(programmer);
     console.log(person.name);
 */
 
+// name / new.target
+// class Car {
+//     constructor() {
+//         console.log(new.target); // 取决于 new 后面的类 -> new Car();
+//     }
+// }
+// new Car();
 
+// 语法糖
+// function Car() {
+//     // if(!(this instanceof Car)){
+//     //     throw Error('必须使用new关键字调用Car');
+//     // }
+//     // // 相比下，更简单
+//     // if (new.target !== Car) {
+//     //     throw Error('必须使用new关键字调用Car');
+//     // }
+// }
+// Car();
+
+// ---------------------------------------------------------------------------
+
+// 在ES5中模拟类
+// 构造函数
+
+// class Car{
+//     constructor(){
+//     }
+// }
+
+// 以上为ES6的方式，以下是ES5的方式，不过class的底层还是用了ES5的原理
+
+// function Car() {  }
+// new Car();
+
+// function Person(name, age) {
+//     this.name = name;
+//     this.age = age;
+// }
+// console.log(new Person('xiaoming', 12));
+// 当用new关键字调用函数的时候 发生了什么 为什么会获得一个新的对象
+// 1、创建一个空的对象
+// 2、把构造函数的prototype属性 作为空对象的原型
+// 3、this赋值为这个空对象
+// 4、执行函数
+// 5、如果函数没有返回值 则返回this[返回之前那个空对象]
+
+/* 
+    function Constructor(fn, args) {
+        var _this = Object.create(fn.prototype);
+        var res = fn.apply(_this, args);
+        return res ? res : _this;
+    }
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.say = function () {
+        console.log('我叫' + this.name);
+    }
+    var person = Constructor(Person, ['张三', 12]);
+    // 这里的Constructor相当于new
+    // var person = new Person('李四', 14);
+    console.log(person);
+    console.log(person.say());
+*/
+
+// ---------------------------------------------------------------------------
+
+// 继承
+
+// 继承可以让子类获得父类的方法 属性
+// 可以扩充 增加新的方法 属性等
+
+// 父类（基类） - 被继承的类
+// 子类 - 继承后的类
+
+// extends 关键字
+/* 
+    class Human {
+        constructor(name, age, sex, hobby) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.hobby = hobby;
+        }
+        desc() {
+            const {
+                name,
+                age,
+                sex,
+                hobby
+            } = this;
+            console.log(`我叫${name},性别${sex}，爱好${hobby}，今年${age}岁`);
+        }
+        eat() {
+            console.log('吧唧吧唧');
+        }
+    }
+    // 通过使用extends去继承父类，再通过super传递父的参数
+    class FEEngineer extends Human {
+        constructor(name, age, sex, hobby, skill, salary) {
+            super(name, age, sex, hobby); // 相当于父类的构造函数
+            this.skill = skill;
+            this.salary = salary;
+        }
+        say(){
+            console.log(this.skill.join(','));
+        }
+    }
+    const feer = new FEEngineer(
+        'zhangsan',
+        '21',
+        'girl',
+        'games',
+        ['es6', 'vue', 'react', 'jquery'],
+        '100K');
+
+    const app = new Human('zhong','22','*','sleep');
+    app.desc();
+*/
+// super
+// 1、作为父类构造函数调用 ^ 上面有使用到
+//    1、非静态方法中访问super -> 父类原型
+//    2、在静态方法中访问super -> 父类
+// 2、作为对象的方式调用（不太常见）
+
+// 在调用super 父亲的 this 始终是子类的 this
+
+// ---------------------------------------------------------------------------
+
+// 多态
+// 同一接口 在不同情况下做不一样的事情
+// 相同的接口 不同的表现
+
+// 接口本身只是一组定义 实现都是在类里面
+// 需要子类去实现的方法
+
+/* 
+    class Human{
+        say(){
+            console.log('我是人');
+        }
+    }
+    class Man extends Human{
+        // 如果子类没有say 方法，那么将会使用父类的say方法，因此父类的say方法可以充当错误报警
+        say(){
+            super.say(); // 指向父类的原型
+            console.log('我是男人');
+        }
+    }
+    class Woman extends Human{
+        say(){
+            super.say(); // 指向父类的原型
+            console.log('我是女人');
+        }
+    }
+    // 将父类的say给覆盖了，这样就实现了多态
+    new Man().say(); 
+    new Woman().say();
+*/
+
+// 重载 (类似于行为判断) 比如说如果没有这个东西就要怎么做
+// class SimpleCalc {
+//     addCalc(...args) {
+//         if (args.length === 0) {
+//             return this.zero();
+//         }
+//         if (args.length === 1) {
+//             return this.onlyOneArgument(args);
+//         }
+//         return this.add(args);
+//     }
+//     zero() {
+//         return 0;
+//     }
+//     onlyOneArgument() {
+//         return args[0];
+//     }
+//     add(args) {
+//         return args.reduce((a, b) => a + b, 0);
+//     }
+// }
+
+// ---------------------------------------------------------------------------
+
+// ES5继承的实现？
+
+// 原型
+// 1、利用构造函数
+// function P() {
+//     this.name = 'parent';
+//     this.say = function () {
+//         console.log('好的好的！一定来');
+//     }
+// }
+// P.prototype.test = function () { // 如果不将C的原型绑定到P上，那么将无法访问
+//     console.log('我是一个test方法');
+// }
+// function C() {
+//     P.call(this); // 继承父元素
+//     this.name = 'child';
+//     this.age = 11;
+// }
+// C.prototype = new P(); // 将原型进行绑定
+// var child = new C();
+// child.say();
 
