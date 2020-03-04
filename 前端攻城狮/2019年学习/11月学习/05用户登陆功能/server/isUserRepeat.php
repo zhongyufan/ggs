@@ -42,8 +42,6 @@ foreach($fileContent_array as $key=>$val){
             }
         }
     }
-    
-    
 }
 
 if($ok){
