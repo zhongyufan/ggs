@@ -1,0 +1,1 @@
+"use strict";var mongoose=require("mongoose");mongoose.connect("mongodb://localhost/test",{useNewUrlParser:!0,useUnifiedTopology:!0}).then(function(){console.log("数据连接成功")}).catch(function(o){console.log("数据库连接失败"+o)});
