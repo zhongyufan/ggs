@@ -12,17 +12,17 @@
 </head>
 
 <body>
-	<header class="col-6 offset-md-3">
+	<header class="col-md-6 offset-md-3">
 		<h1 class="title">新建档案</h1>
 	</header>
-	<section class="col-6 offset-md-3">
+	<section class="col-md-6 offset-md-3">
 		<form action="/add" method="POST">
 			<div class="row">
-				<div class="form-group col">
+				<div class="form-group col-md">
 					<label for="name">姓名</label>
 					<input class="form-control" id="name" type="text" autofocus placeholder="请输入姓名" name="name">
 				</div>
-				<div class="form-group col">
+				<div class="form-group col-md">
 					<label for="age">年龄</label>
 					<input class="form-control" id="age" type="text" autofocus placeholder="请输入年龄" name="age">
 				</div>
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-2">
+				<div class="form-group col-md-2">
 					<label>性别</label>
 					<div>
 						<div class="form-check-inline">
@@ -51,7 +51,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group col-10">
+				<div class="form-group col-md-10">
 					<label>发展方向</label>
 					<div>
 						<div class="form-check form-check-inline">
@@ -106,7 +106,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col">
+				<div class="form-group col-md">
 					<label for="chooes">
 						报名课程
 					</label>
@@ -130,7 +130,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<input type="submit" value="提交" class="btn btn-primary clo-6 offset-md-3" style="width: 50%;">
+				<input type="submit" value="提交" class="btn btn-primary clo-md-6 offset-3" style="width: 50%;">
 			</div>
 		</form>
 	</section>
