@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text">
+    <br>
+    <span></span>
+    <!-- 简单版 -->
+    <script>
+        let obj = {};
+
+        let oInput = document.getElementsByTagName('input')[0];
+        let oSpan = document.getElementsByTagName('span')[0];
+
+        // 数据劫持
+        // ⚠️ 这里只监听了一个属性，违反了开放封闭原则，代码耦合严重
+        Object.defineProperty(obj, 'msg', {
+            set: function (val) {
+                oInput.value = val;
+                oSpan.innerHTML = val;
+            }
+        })
+
+        oInput.addEventListener('input', function (e) {
+            obj.msg = e.target.value;
+        })
+    </script>
+    <!-- 升级版——发布订阅 -->
+
+</body>
+
+</html>
