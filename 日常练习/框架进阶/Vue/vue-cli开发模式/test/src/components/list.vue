@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ul>
+    <slot></slot>
+    <ul @click="$emit('change')">
       <li v-for="(item,index) in arr" :key="index">{{item}}</li>
     </ul>
   </div>

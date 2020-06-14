@@ -1,15 +1,16 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App" />
     <div class="content">
-      <List></List>
-      <List></List>
-      <List></List>
-      <List></List>
-      <List></List>
-      <List></List>
-      <input type="text" v-model="msg" />
-    </div>
+      <List @change="onchange">
+        <h1 class="slot" @click="slot">插槽</h1>
+        {{reverse}} |
+        {{msg}}
+        <button @click="test">修改msg</button>
+      </List>
+    </div>-->
+    <Communit :loading="loading" @talk="test"></Communit>
+    <button @click="loading=!loading">点击我修改{{loading}}</button>
   </div>
 </template>
 
@@ -17,17 +18,52 @@
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
 import List from "@/components/list.vue";
+import Communit from "@/components/communication/index.vue";
 
 export default {
   name: "Home",
   data() {
     return {
-      msg: "123"
+      msg: "123",
+      loading: true
     };
+  },
+  computed: {
+    reverse: {
+      get: function(param) {
+        return this.msg
+          .split("")
+          .reverse()
+          .join("");
+      },
+      set: function(param) {
+        this.msg = "999";
+      }
+    }
+  },
+  watch: {
+    msg(val) {
+      alert(val);
+    }
   },
   components: {
     HelloWorld,
-    List
+    List,
+    Communit
+  },
+  methods: {
+    test() {
+      this.msg = "1234";
+    },
+    slot() {
+      alert("fuck");
+    },
+    onchange() {
+      alert("我是你爸爸👨");
+    },
+    test() {
+      alert("点我干啥？");
+    }
   },
   beforeCreate() {
     console.log("----beforeCreate----");
@@ -80,5 +116,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.slot {
+  color: orange;
+}
+button {
+  position: absolute;
+  top: 0;
 }
 </style>
