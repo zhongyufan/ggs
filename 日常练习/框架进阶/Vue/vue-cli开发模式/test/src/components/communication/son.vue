@@ -2,10 +2,10 @@
   <div class="app">
     <div class="basics">
       <h1>我是儿子/孙子</h1>
-      {{$attrs.loading}}
+      <!-- {{$attrs.loading}} -->
       <button @click="change">点我获取baby</button>
-      <baby class="baby" ref="top"></baby>
-      <baby class="baby"></baby>
+      <baby class="baby" ref="top" :data="$attrs.loading"></baby>
+      <!-- <baby class="baby"></baby> -->
     </div>
   </div>
 </template>
@@ -16,12 +16,12 @@ import Baby from "@/components/communication/baby";
 export default {
   mounted() {
     console.log("mounted了");
-    // this.change();
+    this.change();
+    console.log(this.$refs.top);
   },
   beforeUpdate() {
-    console.log("数据更新前");
     this.change();
-    // this.$refs.top.loading = this.$attrs.loading;
+    this.$refs.top.loading = this.$attrs.loading;
   },
   data() {
     return {
@@ -32,12 +32,36 @@ export default {
     change(event) {
       this.$refs.top.loading = this.$attrs.loading;
       this.$emit("talk");
-      console.log(event);
     }
   },
   components: {
     Baby
   }
+  // beforeCreate() {
+  //   console.log("son--beforeCreate");
+  // },
+  // created() {
+  //   console.log("son--created");
+  // },
+  // beforeMount() {
+  //   console.log("son--beforeMount");
+  // },
+  // mounted() {
+  //   console.log("son--mounted");
+  // },
+  // beforeUpdate() {
+  //   console.log("son--beforeUpdate");
+  // },
+  // updated() {
+  //   this.$refs.top.loading = this.$attrs.loading;
+  //   console.log("son--updated");
+  // },
+  // beforeDestroy() {
+  //   console.log("son--beforeDestroy");
+  // },
+  // destroyed() {
+  //   console.log("son--destroyed");
+  // }
 };
 </script>
 

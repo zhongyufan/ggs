@@ -13,6 +13,30 @@ export default {
     return {
       loading: "我是loading"
     };
+  },
+  beforeCreate() {
+    console.log("baby--beforeCreate");
+  },
+  created() {
+    console.log("baby--created");
+  },
+  beforeMount() {
+    console.log("baby--beforeMount");
+  },
+  mounted() {
+    console.log("baby--mounted");
+  },
+  beforeUpdate() {
+    console.log("baby--beforeUpdate");
+  },
+  updated() {
+    console.log("baby--updated");
+  },
+  beforeDestroy() {
+    console.log("baby--beforeDestroy");
+  },
+  destroyed() {
+    console.log("baby--destroyed");
   }
 };
 </script>

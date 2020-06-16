@@ -10,8 +10,37 @@
 <script>
 import Father from "@/components/communication/father";
 export default {
+  data() {
+    return {
+      msg: "我是msg"
+    };
+  },
   components: {
     Father
+  },
+  beforeCreate() {
+    console.log("祖先--beforeCreate");
+  },
+  created() {
+    console.log("祖先--created");
+  },
+  beforeMount() {
+    console.log("祖先--beforeMount");
+  },
+  mounted() {
+    console.log("祖先--mounted");
+  },
+  beforeUpdate() {
+    console.log("祖先--beforeUpdate");
+  },
+  updated() {
+    console.log("祖先--updated");
+  },
+  beforeDestroy() {
+    console.log("祖先--beforeDestroy");
+  },
+  destroyed() {
+    console.log("祖先--destroyed");
   }
 };
 </script>
