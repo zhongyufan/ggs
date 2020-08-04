@@ -10,7 +10,7 @@
       </List>
     </div>-->
     <Communit :loading="loading"></Communit>
-    <button @click="loading=!loading">点击我修改{{loading}}</button>
+<!--    <button @click="loading=!loading">点击我修改{{loading}}</button>-->
   </div>
 </template>
 
